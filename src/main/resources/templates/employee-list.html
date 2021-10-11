@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Employee List</title>
+</head>
+<body>
+<div layout:fragment="body">
+    <h1>Employee List</h1>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Department</th>
+        </tr>
+        <tr th:each="employee: ${employees}">
+            <td th:text="${employee.id}" />
+            <td th:text="${employee.name}" />
+            <td th:text="${employee.department}" />
+        </tr>
+    </table>
+</div>
+</body>
+</html>
