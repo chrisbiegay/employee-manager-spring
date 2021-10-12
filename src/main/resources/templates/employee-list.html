@@ -14,12 +14,38 @@
             <th>ID</th>
             <th>Name</th>
             <th>Department</th>
+            <th>Actions</th>
         </tr>
         <tr th:each="employee: ${employees}">
             <td th:text="${employee.id}" />
             <td th:text="${employee.name}" />
             <td th:text="${employee.department}" />
+            <td>
+                <a th:href="'javascript:deleteEmployee(' + ${employee.id} + ')'">Delete</a>
+            </td>
         </tr>
     </table>
+    <script>
+        function deleteEmployee(employeeId) {
+            if (!confirm(`Are you sure you want to delete employee ${employeeId}?`)) {
+                return false;
+            }
+
+            let httpRequest = new XMLHttpRequest();
+
+            httpRequest.onreadystatechange = function() {
+                if (httpRequest.readyState === XMLHttpRequest.DONE) {
+                    if (httpRequest.status === 200) {
+                        window.location.reload();
+                    } else {
+                        alert("The employee could not be deleted");
+                    }
+                }
+            }
+
+            httpRequest.open("DELETE", `/employees/${employeeId}`);
+            httpRequest.send();
+        }
+    </script>
 </body>
 </html>

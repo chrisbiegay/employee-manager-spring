@@ -11,6 +11,6 @@ import java.util.List;
 
 public interface EmployeeRepository extends CrudRepository<Employee, Integer> {
 
-    // Spring Data implements this method nd the SQL query automatically, based on the method name.
+    // Spring Data implements this method and the SQL query automatically, based on the method name.
     List<Employee> findByDepartment(String department);
 }
