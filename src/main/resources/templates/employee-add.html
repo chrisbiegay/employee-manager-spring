@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{employee-layout}">
+<head>
+    <title>Add Employee</title>
+</head>
+<body layout:fragment="body">
+<div class="employee-created-message" th:if="${showEmployeeAddedMessage}">
+    Employee created
+</div>
+<h1>Add Employee</h1>
+<form action="/employee/add" method="post">
+    <div class="row">
+        <div class="two columns"><label for="name">Name:</label></div>
+        <div class="ten columns"><input type="text" id="name" name="name"></div>
+    </div>
+    <div class="row">
+        <div class="two columns"><label for="department">Department:</label></div>
+        <div class="ten columns"><input type="text" id="department" name="department"></div>
+    </div>
+    <input type="submit" value="Add Employee">
+</form>
+</body>
+</html>

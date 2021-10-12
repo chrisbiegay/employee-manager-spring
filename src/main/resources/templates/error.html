@@ -1,17 +1,12 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE HTML>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{default-layout}">
 <head>
-    <style>
-        table td{
-            vertical-align:top;
-            border:solid 1px #888;
-            padding:10px;
-        }
-
-    </style>
+    <title>Error</title>
 </head>
-<body>
+<body layout:fragment="body">
 <h1>My Thymeleaf Error Page</h1>
 <table>
     <tr>

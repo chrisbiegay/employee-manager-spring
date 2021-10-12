@@ -2,7 +2,6 @@ package chris.webapp.web;
 
 import chris.webapp.domain.Employee;
 import chris.webapp.repository.EmployeeRepository;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,9 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.View;
-
-import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping(path="/employee")
@@ -29,15 +25,18 @@ public class EmployeeController {
      * Redirect the URI "/employee" to "/employee/".
      */
     @GetMapping("")
-    public ModelAndView redirectPostToPost() {
+    public ModelAndView rootRedirect() {
         return new ModelAndView("redirect:/employee/");
     }
 
     @GetMapping("/")
-    public String home() {
-        return "employee-home";  // view name
+    public ModelAndView rootSlashRedirect() {
+        return new ModelAndView("redirect:/employee/list");
     }
 
+    /**
+     * Render a page listing all the employees.
+     */
     @GetMapping(path="/list")
     public String getAllEmployees(@RequestParam(required = false) String department, Model model) {
         Iterable<Employee> employees;
@@ -52,9 +51,23 @@ public class EmployeeController {
         return "employee-list";
     }
 
-    // @ResponseBody means the returned String is the response, not a view name
+    /**
+     * Render a page allowing a new employee record to be created.
+     */
+    @GetMapping(path="/add")
+    public String addNewEmployee(@RequestParam(required = false) String created, Model model) {
+        if (created != null && created.toLowerCase().equals("true")) {
+            model.addAttribute("showEmployeeAddedMessage", true);
+        }
+
+        return "employee-add";
+    }
+
+    /**
+     * Handle the create-employee form submission.
+     */
     @PostMapping(path="/add")
-    public @ResponseBody String addNewEmployee (
+    public ModelAndView addNewEmployee (
         @RequestParam String name,
         @RequestParam String department) {
 
@@ -62,10 +75,12 @@ public class EmployeeController {
         n.setName(name);
         n.setDepartment(department);
         employeeRepository.save(n);
-        return "Saved";
+        return new ModelAndView("redirect:/employee/add?created=true");
     }
 
-    // Returns a JSON or XML with the employees
+    /**
+     * Renders a JSON string of all the employees.
+     */
     @GetMapping(path="/list-json")
     public @ResponseBody Iterable<Employee> getAllEmployees(@RequestParam(required = false) String department) {
         if (department != null) {

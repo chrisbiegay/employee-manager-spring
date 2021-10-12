@@ -1,23 +1,22 @@
-<!DOCTYPE HTML>
-<html lang="en"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout}">
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<!-- A layout shared by Thymeleaf templates in this app. -->
+
 <head>
-    <title>Employee Portal</title>
+    <title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">Spring Boot Web App</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+    <!-- Spring Boot Web serves static files like these from a "/static" path non the classpath. -->
     <link rel="stylesheet" href="/css/normalize.css">
     <link rel="stylesheet" href="/css/skeleton.css">
     <link rel="stylesheet" href="/css/app.css">
 </head>
 <body>
-<div layout:fragment="body">
-    <h1>Employee Portal</h1>
-    <ul>
-        <li><a href="add">Add Employee</a></li>
-        <li><a href="list">List Employees</a></li>
-    </ul>
-</div>
+<section layout:fragment="body">
+    <p>View body not found.</p>
+</section>
 </body>
 </html>
