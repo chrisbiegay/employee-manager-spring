@@ -10,41 +10,37 @@
     <h1>Employees</h1>
 
     <table>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Department</th>
-            <th>Actions</th>
-        </tr>
-        <tr th:each="employee: ${employees}">
-            <td th:text="${employee.id}" />
-            <td th:text="${employee.name}" />
-            <td th:text="${employee.department}" />
-            <td>
-                <a th:href="'javascript:deleteEmployee(' + ${employee.id} + ')'">Delete</a>
-            </td>
-        </tr>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Department</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="employee: ${employees}">
+                <td th:text="${employee.id}" />
+                <td th:text="${employee.name}" />
+                <td th:text="${employee.department}" />
+                <td>
+                    <a href="#" th:onclick="'deleteEmployee(' + ${employee.id} + '); return false;'">Delete</a>
+                </td>
+            </tr>
+        </tbody>
     </table>
     <script>
-        function deleteEmployee(employeeId) {
+        async function deleteEmployee(employeeId) {
             if (!confirm(`Are you sure you want to delete employee ${employeeId}?`)) {
                 return false;
             }
 
-            let httpRequest = new XMLHttpRequest();
-
-            httpRequest.onreadystatechange = function() {
-                if (httpRequest.readyState === XMLHttpRequest.DONE) {
-                    if (httpRequest.status === 200) {
-                        window.location.reload();
-                    } else {
-                        alert("The employee could not be deleted");
-                    }
-                }
+            const deleteResponse = await fetch(`/employees/${employeeId}`, { method: "DELETE" });
+            if (deleteResponse.status === 200) {
+                window.location.reload();
+            } else {
+                alert("The employee could not be deleted");
             }
-
-            httpRequest.open("DELETE", `/employees/${employeeId}`);
-            httpRequest.send();
         }
     </script>
 </body>
