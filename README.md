@@ -8,6 +8,7 @@ Technologies demonstrated:
 * Spring MVC
 * Thymeleaf
 * Hibernate, JPA
+* Mockito
 * MySQL
 
 # Prerequisites
